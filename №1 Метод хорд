@@ -1,25 +1,14 @@
-#include <iostream>
-#include <cmath>
-#include <locale.h>
-using namespace std;
-double f(double x)
-{
-return pow(x,3)-0.2*pow(x,2)+0.2*x-1.2;
+double f(double x) {
+    return sqrt(fabs(cos(x))) - x; // Заменить функцией, корни которой мы ищем
 }
- 
-double findRoot(double a, double b, double e)
-{
-while(fabs(f(b)) > e)
-{
-a = b - ((b - a) * f(b))/(f(b) - f(a));
-b = a - ((a - b) * f(a))/(f(a) - f(b));
-}
-return b;
-}
-int main()
-{
-setlocale(LC_ALL,"Russian");
-double a, b, e;
-a=0.5; b=1.5; e=0.0001;
-cout<<"Корень уравнения x="<<findRoot(a, b, e)<<endl;
+
+// a, b - пределы хорды, epsilon — необходимая погрешность
+double findRoot(double a, double b, double epsilon) {
+    while(fabs(b - a) > epsilon) {
+        a = b - (b - a) * f(b) / (f(b) - f(a));
+        b = a + (a - b) * f(a) / (f(a) - f(b));
+    }
+    // a, b — (i - 1)-й и i-й члены
+
+    return b;
 }
