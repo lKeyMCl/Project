@@ -1,1 +1,25 @@
-
+#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+double f(double x)
+{
+    return pow(x,5)-pow(x,4)+3*pow(x,3)-5*pow(x,2)+15*x-1;
+}
+void main()
+{
+   double x2,x1,xN,y,E=0.01;
+   int n=0;
+    clrscr();
+   printf ("vvedite x1 x2\n");
+   scanf("%lf%lf",&x1,&x2);
+   printf ("Metod sekushih:\n");
+    do{
+      n++;
+      y=xN;
+      xN=x2-((x2-x1)/(f(x2)-f(x1)))*f(x2);
+      x1=x2;
+      x2=xN;
+   }while (fabs(y-xN)>=E);
+   printf ("Otvet:%lf\nnayden na %d iteracii",xN,n);
+   getch();
+ }
