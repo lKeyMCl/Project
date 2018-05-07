@@ -1,1 +1,18 @@
-
+int main()
+ 
+{
+     double a, b, c, a1;
+     int i;
+     a = 0;
+     cin >> b;
+     a1 = b;
+     cin >> i;
+     for(int j=0; j < i; j++)
+     {
+          c = (a+b)/2;
+          c * c > a1 ? b = c : a = c;
+     }
+     cout << c;
+     getch();
+     return 0;
+}
