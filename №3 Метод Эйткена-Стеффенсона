@@ -1,1 +1,29 @@
-
+#include <stdio.h>
+#include <math.h>
+ 
+// x = x + 3.94*x*x*x-11.8*x*x-1.56*x+18.67
+double f(double x)
+{
+  //return sin(x) +.3;
+  return 3.94*x*x*x-11.8*x*x-0.56*x+18.67;
+}
+ 
+double Solve(double x, double epsilon)
+{
+  double x1,x2,xold,tmp;
+  do
+  {
+    xold=x;
+    x1=f(x);
+    x2=f(x1);
+    tmp=x-2*x1+x2;
+    x=(x*x2-x1*x1)/tmp;
+  } while (fabs(xold-x)>epsilon && tmp!=0);
+  return x;
+}
+ 
+int main()
+{
+  printf("3.94*x*x*x-11.8*x*x-0.56*x+18.67, [a; b]=[1.8; 2.0]");
+  printf("\nnx0 = %f",Solve(1.9, 1e-5));
+}
