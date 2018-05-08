@@ -1,14 +1,23 @@
-double f(double x) {
-    return sqrt(fabs(cos(x))) - x; // Заменить функцией, корни которой мы ищем
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <cmath>
+using namespace std;
+double find(double x0, double x1, double eps)
+{
+  double rez = x1, f0, f;
+  int iter = 0;
+  cout << "x0= " << x0 << " x1= " << x1 << " ";
+  do {
+    f = sin(M_PI*rez / 180) - 1 / rez;
+    f0 = sin(M_PI*x0 / 180) - 1 / x0;
+    rez = rez - f / (f - f0)*(rez - x0);
+    iter++;
+  } while (fabs(f) > eps && iter<20000);
+  cout << iter << " iterations" << endl;
+  return rez;
 }
-
-// a, b - пределы хорды, epsilon — необходимая погрешность
-double findRoot(double a, double b, double epsilon) {
-    while(fabs(b - a) > epsilon) {
-        a = b - (b - a) * f(b) / (f(b) - f(a));
-        b = a + (a - b) * f(a) / (f(a) - f(b));
-    }
-    // a, b — (i - 1)-й и i-й члены
-
-    return b;
+int main() 
+{
+  cout << find(1.0, 10.0, 0.000001);
+  cin.get(); return 0;
 }
