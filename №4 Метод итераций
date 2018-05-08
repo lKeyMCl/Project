@@ -1,41 +1,22 @@
+#define _USE_MATH_DEFINES
 #include <iostream>
-#include <conio.h>
 #include <cmath>
- 
 using namespace std;
- 
-double f(double x)
+double find(double x, double eps)
 {
-    return pow(x,2.0) - 20*sin(x);
+  double rez; int iter = 0;
+  cout << "x0= " << x << " ";
+  do {
+    rez = x;
+    x = 1 / (sin(M_PI*x / 180));
+    iter++;
+  } while (fabs(rez - x) > eps && iter<20000);
+  cout << iter << " iterations" << endl;
+  return x;
 }
- 
-int main()
+int main() 
 {
-    double a,b,eps,x,dx;
-    do
-    {
-        std::cout<<"Enter diapazone[a;b] of iterations\r\n";
-        std::cout<<"a = ";std::cin>>a;
-        std::cout<<"b = ";std::cin>>b;
-        std::cout<<"Enter accuracy e ";std::cin>>eps;
-        //Шаг определяем по точности вычислений
-        //Погрешность f(x[i]) - f(x[i - 1]) < x[i] - x[i - 1] = h
-        dx = (b - a)*(eps/10);//Мин шаг точность/10
-        x = a;
-        //Вычисления останавливаем когда добиваемся
-        //требуемой точности вычислений eps < fabs(f(x))
-        //или же достигаем конца промежутка
-        while(eps < fabs(f(x)) && x <= b)
-            x += dx;
-        if(b < x)
-            std::cout<<"[a;b] isn't contain roots\r\n";
-        else
-        {
-            std::cout<<"root      : "<<x<<"\r\n";
-            std::cout<<"acuracy e : "<<fabs(f(x))<<"\r\n";
-        }
-        std::cout<<"Press Y for new input\r\n";
-    }
-    while(toupper(getch()) == 'Y');
-    return 0;
+  cout << find(7, 0.00001);
+  cin.get(); 
+  return 0;
 }
